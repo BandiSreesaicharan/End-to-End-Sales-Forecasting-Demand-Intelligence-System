@@ -9,7 +9,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="xgboost")
 st.set_page_config(page_title="Sales Forecasting Dashboard", layout="wide")
 
 MODEL_DIR = "models"
-VIS_DIR = "visuals"
+VIS_DIR = "charts"
 
 @st.cache_data
 def load_csvs():
