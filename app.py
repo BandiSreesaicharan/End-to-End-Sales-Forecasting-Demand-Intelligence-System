@@ -29,14 +29,14 @@ def load_raw_data():
 
 @st.cache_resource
 def load_models():
-    sarima = joblib.load(os.path.join(MODEL_DIR, "sarima_model.pkl"))
     prophet = joblib.load(os.path.join(MODEL_DIR, "prophet_model.pkl"))
+    sarima = joblib.load(os.path.join(MODEL_DIR, "sarima_model.pkl"))
     xgb = joblib.load(os.path.join(MODEL_DIR, "xgboost_model.pkl"))
-    return sarima, prophet, xgb
+    return prophet, sarima, xgb
 
 comparison_df, anomaly_df, cluster_df, segment_metrics_df = load_csvs()
 raw_df = load_raw_data()
-sarima_model, prophet_model, xgb_model = load_models()
+prophet_model, sarima_model, xgb_model = load_models()
 
 st.title("Sales Forecasting & Demand Intelligence Dashboard")
 
@@ -78,7 +78,7 @@ elif page == "Forecast Explorer":
     tab1, tab2 = st.tabs(["Overall Models", "Category / Region Forecast"])
 
     with tab1:
-        model_choice = st.selectbox("Select Model", ["SARIMA", "Prophet", "XGBoost"])
+        model_choice = st.selectbox("Select Model", ["Prophet", "SARIMA", "XGBoost"])
         horizon = st.slider("Forecast Horizon (months)", 1, 3, 3, key="overall_horizon")
 
         model_row = comparison_df[comparison_df["Model"] == model_choice].iloc[0]
