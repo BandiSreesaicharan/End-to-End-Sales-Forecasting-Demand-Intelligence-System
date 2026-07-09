@@ -134,7 +134,9 @@ elif page == "Anomaly Report":
     st.image(os.path.join(VIS_DIR, "anomaly_detection.png"))
 
     st.subheader("Detected Anomaly Weeks")
-    st.dataframe(anomaly_df[anomaly_df["IsoAnomaly"] == 1][["Date", "Sales"]].reset_index(drop=True))
+    anomaly_display = anomaly_df[anomaly_df["IsoAnomaly"] == 1][["Date", "Sales"]].reset_index(drop=True)
+    anomaly_display.index = anomaly_display.index + 1
+    st.dataframe(anomaly_display)
 
 elif page == "Product Segments":
     st.header("Product Demand Segments")
@@ -143,4 +145,6 @@ elif page == "Product Segments":
     st.image(os.path.join(VIS_DIR, "cluster_scatter.png"))
 
     st.subheader("Sub-Category Cluster Assignments")
-    st.dataframe(cluster_df[["Sub-Category", "Cluster"]].reset_index(drop=True))
+    cluster_display = cluster_df[["Sub-Category", "Cluster"]].reset_index(drop=True)
+    cluster_display.index = cluster_display.index + 1
+    st.dataframe(cluster_display)
